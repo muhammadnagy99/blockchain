@@ -1,4 +1,4 @@
-#include "transaction.h"
+#include "core/transaction.h"
 #include <openssl/sha.h>
 #include <openssl/evp.h>
 #include <openssl/pem.h>
@@ -7,6 +7,8 @@
 #include <iomanip>
 #include <iostream>
 #include <random>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 Transaction::Transaction(const std::string& sender, const std::string& receiver, double amount)
     : sender(sender), receiver(receiver), amount(amount) {
@@ -17,7 +19,6 @@ Transaction::Transaction(const std::string& sender, const std::string& receiver,
         throw std::runtime_error("Failed to initialize timestamp");
     }
 
-    // Generate a random nonce
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(1, 1000000);
@@ -25,8 +26,11 @@ Transaction::Transaction(const std::string& sender, const std::string& receiver,
 
     transaction_id = generate_transaction_id();
 }
-
-
+Transaction::Transaction(const json& json_data)
+    : sender(json_data["sender"]),
+      receiver(json_data["receiver"]),
+      amount(json_data["amount"]),
+      transaction_id(json_data["transaction_id"]) {}
 
 std::string Transaction::get_sender() const { return sender; }
 std::string Transaction::get_receiver() const { return receiver; }
@@ -57,4 +61,11 @@ std::string Transaction::generate_transaction_id() const {
     return hash_string.str();
 }
 
-
+json Transaction::to_json() const {
+    json j;
+    j["sender"] = sender;
+    j["receiver"] = receiver;
+    j["amount"] = amount;
+    j["transaction_id"] = transaction_id;
+    return j;
+}
