@@ -1,1 +1,50 @@
+# Ignore build artifacts
+/build/
+CMakeCache.txt
+CTestTestfile.cmake
+CMakeFiles/
+cmake_install.cmake
+Makefile
+# Ignore Visual Studio Code settings
 .vscode/
+
+# Ignore compiled binaries and object files
+*.o
+*.obj
+*.so
+*.a
+*.lib
+*.dll
+*.exe
+*.out
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*.DS_Store
+
+# Ignore test binaries
+/test/transaction_test
+/test/*.exe
+/test/*.out
+
+# Ignore compiled dependencies
+/dependencies/
+/third_party/
+
+# Ignore package managers (if using Conan or vcpkg)
+conan.lock
+conanbuildinfo.txt
+vcpkg_installed/
+
+# Ignore generated documentation
+/docs/doxygen/
+docs/html/
+docs/latex/
+
+# Ignore any user-specific settings or caches
+*.cache
+*.ccls-cache/
+.idea/
