@@ -27,7 +27,7 @@ This project is a custom Layer 0 blockchain implementation in C++, designed with
 │   │   ├── iminer.h           
 │   │   ├── itransaction_pool.h
 │   ├── mining/
-│   │   ├── miner.h            # Automatic mining functionality
+│   │   ├── miner.h            # mining functionality
 │   ├── serializers/           # Serialization utilities
 │   │   ├── block_serializer.h  
 │   │   ├── block_body_serializer.h  
@@ -54,8 +54,8 @@ This project is a custom Layer 0 blockchain implementation in C++, designed with
 
 1. Clone the Repository
 
-git clone https://github.com/yourusername/your-repo.git
-cd your-repo
+https://github.com/muhammadnagy99/blockchain/tree/main/chain
+cd chain
 
 2. Install Dependencies
 
@@ -76,7 +76,7 @@ make
 
 4. Run the Application
 
-./your_project_binary
+./blockchain_app
 
 **Usage**
 
