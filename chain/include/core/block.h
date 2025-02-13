@@ -11,7 +11,6 @@ class Block {
 private:
     std::unique_ptr<IBlockHeader> header;
     std::unique_ptr<IBlockBody> body;
-    std::string hash;
 
 public:
     Block(std::unique_ptr<IBlockHeader> header, std::unique_ptr<IBlockBody> body);

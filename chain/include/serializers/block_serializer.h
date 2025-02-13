@@ -1,7 +1,7 @@
 #ifndef BLOCK_SERIALIZER_H
 #define BLOCK_SERIALIZER_H
 
-#include "block.h"
+#include "core/block.h"
 #include <string>
 
 class BlockSerializer {

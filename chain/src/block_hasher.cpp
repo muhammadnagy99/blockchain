@@ -3,12 +3,16 @@
 #include <sstream>
 #include <iomanip>
 
-std::string BlockHasher::calculate_hash(const IBlockHeader& header, const IBlockBody& body) {
+std::string BlockHasher::calculate_hash(const IBlockHeader& header) {
+    return calculate_hash(header.get_previous_hash(), header.get_timestamp(), header.get_nonce(), header.get_merkle_root());
+}
+
+std::string BlockHasher::calculate_hash(const std::string& previous_hash, std::time_t timestamp, uint32_t nonce, const std::string& merkle_root) {
     std::ostringstream oss;
-    oss << header.get_previous_hash()
-        << header.get_timestamp()
-        << header.get_nonce()
-        << header.get_merkle_root();
+    oss << previous_hash
+        << timestamp 
+        << nonce
+        << merkle_root;
 
     std::string data = oss.str(); 
 

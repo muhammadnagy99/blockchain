@@ -10,12 +10,14 @@
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
-Transaction::Transaction(const std::string& sender, const std::string& receiver, double amount)
-    : sender(sender), receiver(receiver), amount(amount) {
-    
+Transaction::Transaction(const std::string &sender, const std::string &receiver, double amount)
+    : sender(sender), receiver(receiver), amount(amount)
+{
+
     timestamp = std::time(nullptr);
 
-    if (timestamp == -1) {
+    if (timestamp == -1)
+    {
         throw std::runtime_error("Failed to initialize timestamp");
     }
 
@@ -26,11 +28,11 @@ Transaction::Transaction(const std::string& sender, const std::string& receiver,
 
     transaction_id = generate_transaction_id();
 }
-Transaction::Transaction(const json& json_data)
-    : sender(json_data["sender"]),
-      receiver(json_data["receiver"]),
-      amount(json_data["amount"]),
-      transaction_id(json_data["transaction_id"]) {}
+Transaction::Transaction(const json &json_data)
+    : sender(json_data.at("sender").get<std::string>()),
+      receiver(json_data.at("receiver").get<std::string>()),
+      amount(json_data.at("amount").get<double>()), 
+      transaction_id(json_data.at("transaction_id").get<std::string>()) {}
 
 std::string Transaction::get_sender() const { return sender; }
 std::string Transaction::get_receiver() const { return receiver; }
@@ -39,29 +41,33 @@ std::time_t Transaction::get_timestamp() const { return timestamp; }
 std::string Transaction::get_signature() const { return signature; }
 std::string Transaction::get_transaction_id() const { return transaction_id; }
 
-std::string Transaction::to_string() const {
+std::string Transaction::to_string() const
+{
     std::ostringstream oss;
     oss << sender << receiver << amount << timestamp;
     return oss.str();
 }
 
-std::string Transaction::generate_transaction_id() const {
+std::string Transaction::generate_transaction_id() const
+{
     std::ostringstream oss;
     oss << sender << receiver << amount << timestamp << flag;
 
     std::string data = oss.str();
     unsigned char hash[SHA256_DIGEST_LENGTH];
-    SHA256(reinterpret_cast<const unsigned char*>(data.c_str()), data.size(), hash);
+    SHA256(reinterpret_cast<const unsigned char *>(data.c_str()), data.size(), hash);
 
     std::ostringstream hash_string;
-    for (unsigned char c : hash) {
+    for (unsigned char c : hash)
+    {
         hash_string << std::hex << std::setw(2) << std::setfill('0') << (int)c;
     }
 
     return hash_string.str();
 }
 
-json Transaction::to_json() const {
+json Transaction::to_json() const
+{
     json j;
     j["sender"] = sender;
     j["receiver"] = receiver;
@@ -69,3 +75,9 @@ json Transaction::to_json() const {
     j["transaction_id"] = transaction_id;
     return j;
 }
+
+std::unique_ptr<BodyData> Transaction::clone() const
+{
+
+    return std::make_unique<Transaction>(*this);
+};

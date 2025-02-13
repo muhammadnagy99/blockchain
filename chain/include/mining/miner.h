@@ -1,11 +1,11 @@
-#ifndef SIMPLEMINER_H
-#define SIMPLEMINER_H
+#ifndef MINER_H
+#define MINER_H
 
-#include "iminer.h"
+#include "interfaces/iminer.h"
 
 class Miner : public IMiner {
 public:
-    Block mine_block(const Block& previous_block, const std::vector<Transaction>& transactions) override;
+    Block mine_block(const IBlockHeader& previous_header, const std::vector<Transaction>& transactions);
 };
 
-#endif // SIMPLEMINER_H
+#endif // MINER_H

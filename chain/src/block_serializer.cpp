@@ -1,4 +1,4 @@
-#include "core/block_serializer.h"
+#include "serializers/block_serializer.h"
 #include <nlohmann/json.hpp> 
 #include "core/block_header.h"
 #include "core/block_body.h"
@@ -7,8 +7,8 @@ using json = nlohmann::json;
 
 std::string BlockSerializer::serialize(const Block& block) {
     json j;
-    j["hash"] = block.get_hash();
     j["header"]["previous_hash"] = block.get_header().get_previous_hash();
+    j["header"]["block_hash"] = block.get_header().get_hash();
     j["header"]["timestamp"] = block.get_header().get_timestamp();
     j["header"]["nonce"] = block.get_header().get_nonce();
     j["header"]["merkle_root"] = block.get_header().get_merkle_root();
@@ -30,7 +30,8 @@ Block BlockSerializer::deserialize(const std::string& json_data) {
         j["header"]["timestamp"], 
         j["header"]["previous_hash"], 
         j["header"]["nonce"], 
-        j["header"]["merkle_root"]
+        j["header"]["merkle_root"],
+        j["header"]["block_hash"] 
     );
 
     std::unique_ptr<BlockBody> body = std::make_unique<BlockBody>();

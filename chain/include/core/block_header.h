@@ -7,18 +7,22 @@
 #include <ctime>
 #include <cstdint>
 
-class BlockHeader : public IBlockHeader {
+
+class BlockHeader : public IBlockHeader
+{
 private:
     std::time_t timestamp;
+    std::string block_hash; 
     std::string previous_hash;
     uint32_t nonce;
     std::string merkle_root;
 
 public:
-    BlockHeader(std::time_t timestamp, const std::string& previous_hash, uint32_t nonce, const std::string& merkle_root);
+    BlockHeader(std::time_t timestamp, const std::string &previous_hash, uint32_t nonce, const std::string &merkle_root, const std::string &block_hash);
 
     std::time_t get_timestamp() const;
     std::string get_previous_hash() const;
+    std::string get_hash() const;
     uint32_t get_nonce() const;
     std::string get_merkle_root() const;
 };

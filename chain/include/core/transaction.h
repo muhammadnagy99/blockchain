@@ -16,7 +16,7 @@ private:
     double amount;
     std::string signature;
     std::string transaction_id;
-    int flag;
+    std::string flag;
 
 public:
     Transaction(const std::string &sender, const std::string &receiver, double amount);
@@ -31,6 +31,8 @@ public:
     std::string generate_transaction_id() const;
     std::string to_string() const;
     json to_json() const;
+
+    std::unique_ptr<BodyData> clone() const;
 };
 
 #endif // TRANSACTION_H

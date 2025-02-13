@@ -1,13 +1,22 @@
-#ifndef IBLOCKVALIDATOR_H
-#define IBLOCKVALIDATOR_H
+#ifndef IBLOCK_VALIDATOR_H
+#define IBLOCK_VALIDATOR_H
 
-#include "block.h"
+#include "core/block_header.h"
+#include "core/block_body.h"
+#include <rocksdb/db.h>
+#include <vector>
 
-class IBlockValidator {
+class IBlockValidator
+{
 public:
-    virtual bool is_valid_block(const Block& new_block, const Block& prev_block) = 0;
-    virtual bool is_valid_chain(const std::vector<Block>& chain) = 0;
     virtual ~IBlockValidator() = default;
+    virtual bool is_valid_block(const BlockHeader &new_header, const BlockHeader &prev_header) = 0;
+
+    virtual bool is_valid_chain(rocksdb::DB *db) = 0;
+
+    virtual bool is_valid_body(const BlockHeader &header, const BlockBody &body) = 0;
+
+    virtual bool is_valid_proof_of_work(const BlockHeader &header) = 0;
 };
 
-#endif // IBLOCKVALIDATOR_H
+#endif // IBLOCK_VALIDATOR_H
