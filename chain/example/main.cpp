@@ -9,6 +9,9 @@
 #include <vector>
 #include <string>
 
+constexpr const char *BLOCKCHAIN_DB_PATH = "blockchain_db";
+constexpr const char *TRANSACTION_POOL_DB_PATH = "transaction_pool_db_path";
+
 void print_menu()
 {
     std::cout << "\n===== Blockchain CLI =====\n";
@@ -24,8 +27,8 @@ void print_menu()
 
 int main()
 {
-    std::string blockchain_db_path = "blockchain_db";
-    std::string transaction_pool_db_path = "transaction_pool_db_path";
+    std::string blockchain_db_path = std::string(BLOCKCHAIN_DB_PATH);
+    std::string transaction_pool_db_path = std::string(TRANSACTION_POOL_DB_PATH);
 
     auto validator = std::make_unique<BlockValidator>();
     auto miner = std::make_unique<Miner>();

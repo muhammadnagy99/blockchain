@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package transaction;
+
+service TransactionService {
+    rpc AddTransaction(TransactionJsonRequest) returns (TransactionResponse);
+}
+
+message TransactionJsonRequest {
+    string json_data = 1;  // The entire transaction in a JSON format
+}
+
+message TransactionResponse {
+    bool success = 1;
+    string message = 2;
+}

@@ -46,3 +46,8 @@ docs/latex/
 *.cache
 *.ccls-cache/
 .idea/
+
+gRCP-server/client.cpp
+gRCP-server/transaction_client
+gRCP-server/transaction_server
+

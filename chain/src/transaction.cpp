@@ -31,8 +31,11 @@ Transaction::Transaction(const std::string &sender, const std::string &receiver,
 Transaction::Transaction(const json &json_data)
     : sender(json_data.at("sender").get<std::string>()),
       receiver(json_data.at("receiver").get<std::string>()),
-      amount(json_data.at("amount").get<double>()), 
+      timestamp(json_data.at("timestamp").get<std::time_t>()),
+      amount(json_data.at("amount").get<double>()),
+      signature(json_data.at("signature").get<std::string>()),
       transaction_id(json_data.at("transaction_id").get<std::string>()) {}
+
 
 std::string Transaction::get_sender() const { return sender; }
 std::string Transaction::get_receiver() const { return receiver; }
@@ -73,6 +76,8 @@ json Transaction::to_json() const
     j["receiver"] = receiver;
     j["amount"] = amount;
     j["transaction_id"] = transaction_id;
+    j["timestamp"] = timestamp;
+    j["signature"] = signature;
     return j;
 }
 
