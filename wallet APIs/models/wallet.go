@@ -4,20 +4,25 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"wallet-APIs/utils"
 )
 
 // Wallet represents a user's wallet
 // @Description A wallet contains an ID, balance, and creation timestamp
 type Wallet struct {
 	ID        string `json:"wallet_id"`
+	PublicKey string `json:"public_key"`
 	Balance   int    `json:"balance"`
 	CreatedAt int64  `json:"created_at"`
 }
 
-// NewWallet creates a new wallet with a unique ID
-func NewWallet() Wallet {
+func NewWallet(secretKey string) Wallet {
+	walletID := uuid.New().String()
+	publicKey := utils.GeneratePublicKey(walletID)
+
 	return Wallet{
-		ID:        uuid.New().String(),
+		ID:        walletID,
+		PublicKey: publicKey,
 		Balance:   0,
 		CreatedAt: time.Now().Unix(),
 	}
@@ -26,8 +31,9 @@ func NewWallet() Wallet {
 // OpenWalletResponse represents the response after creating a new wallet
 // @Description Response structure containing the wallet ID and an authentication token
 type OpenWalletResponse struct {
-	WalletID string `json:"wallet_id"`
-	Token    string `json:"token"`
+	WalletID   string `json:"wallet_id"`
+	WalletAddr string `json:"wallet_address"`
+	Token      string `json:"token"`
 }
 
 // LoginRequest represents the request payload for wallet login
@@ -43,10 +49,10 @@ type LoginResponse struct {
 }
 
 type WalletInfo struct {
-	Balance int `json:"balance"`
-	ID        string `json:"wallet_id"`
+	Balance int    `json:"balance"`
+	ID      string `json:"wallet_id"`
 }
 
 type WalletAddr struct {
-	ID        string `json:"wallet_id"`
+	ID string `json:"wallet_id"`
 }

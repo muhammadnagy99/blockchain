@@ -2,19 +2,19 @@ package services
 
 import (
 	"errors"
+	"os"
 	"time"
 	"wallet-APIs/models"
 	"wallet-APIs/repository"
-	"os"
-	
+
 	"github.com/golang-jwt/jwt/v4"
 )
 
 var secretKey = []byte(os.Getenv("SECRET_KEY"))
 
-func generateToken(walletID string) string {
+func generateToken(PublicKey string) string {
 	claims := &jwt.RegisteredClaims{
-		Subject:   walletID,
+		Subject:   PublicKey,
 		ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -28,7 +28,7 @@ func OpenWallet() (models.Wallet, string, error) {
 		return models.Wallet{}, "", err
 	}
 
-	token := generateToken(wallet.ID)
+	token := generateToken(wallet.PublicKey)
 	return wallet, token, nil
 }
 

@@ -3,9 +3,10 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"wallet-APIs/models"
-	"wallet-APIs/services"
 	"wallet-APIs/middleware"
+	"wallet-APIs/models"
+	"wallet-APIs/repository"
+	"wallet-APIs/services"
 )
 
 // SendCoinsHandler sends coins from one wallet to another
@@ -48,13 +49,15 @@ func SendCoinsHandler(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} models.GetTransactionsResponse
 // @Router /wallet/transactions [get]
 func GetTransactionsHandler(w http.ResponseWriter, r *http.Request) {
-	walletID, ok := r.Context().Value(middleware.WalletIDKey).(string)
+	walletID, ok := r.Context().Value(middleware.PublicKey).(string)
 	if !ok || walletID == "" {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
 
-	transactions, err := services.GetTransactions(walletID)
+	wallet, err := repository.GetWallet(walletID)
+
+	transactions, err := services.GetTransactions(wallet.PublicKey)
 	if err != nil {
 		http.Error(w, "No transactions found", http.StatusNotFound)
 		return

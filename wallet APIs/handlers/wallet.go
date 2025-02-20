@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
+	"wallet-APIs/middleware"
 	"wallet-APIs/models"
 	"wallet-APIs/repository"
 	"wallet-APIs/services"
-	"wallet-APIs/middleware"
 )
 
 // OpenWalletHandler creates a new wallet
@@ -26,6 +27,7 @@ func OpenWalletHandler(w http.ResponseWriter, r *http.Request) {
 
 	response := models.OpenWalletResponse{
 		WalletID: wallet.ID,
+		WalletAddr: wallet.PublicKey,
 		Token:    token,
 	}
 	json.NewEncoder(w).Encode(response)
@@ -47,7 +49,7 @@ func LoginWalletHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid request", http.StatusBadRequest)
 		return
 	}
-
+	log.Printf("%s", req.WalletID)
 	token, err := services.LoginWallet(req.WalletID)
 	if err != nil {
 		http.Error(w, "Invalid wallet ID", http.StatusUnauthorized)
@@ -68,12 +70,13 @@ func LoginWalletHandler(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} models.WalletAddr
 // @Router /wallet/receive [get]
 func ReceiveCoinsHandler(w http.ResponseWriter, r *http.Request) {
-	walletID, ok := r.Context().Value(middleware.WalletIDKey).(string)
+	walletID, ok := r.Context().Value(middleware.PublicKey).(string)
 	if !ok || walletID == "" {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
 
+	log.Printf("%s\n", walletID)
 	wallet, err := repository.GetWallet(walletID)
 	if err != nil {
 		http.Error(w, "Wallet not found", http.StatusNotFound)
@@ -81,7 +84,7 @@ func ReceiveCoinsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(map[string]string{
-		"wallet_id": wallet.ID,
+		"wallet_address": wallet.PublicKey,
 	})
 }
 
@@ -95,13 +98,13 @@ func ReceiveCoinsHandler(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} models.WalletInfo
 // @Router /wallet/info [get]
 func GetWalletInfoHandler(w http.ResponseWriter, r *http.Request) {
-	walletID, ok := r.Context().Value(middleware.WalletIDKey).(string)
-	if !ok || walletID == "" {
+	PublicKey, ok := r.Context().Value(middleware.PublicKey).(string)
+	if !ok || PublicKey == "" {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
 
-	wallet, err := repository.GetWallet(walletID)
+	wallet, err := repository.GetWalletByPublicKey(PublicKey)
 	if err != nil {
 		http.Error(w, "Wallet not found", http.StatusNotFound)
 		return

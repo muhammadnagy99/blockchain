@@ -14,7 +14,7 @@ var secretKey = []byte(os.Getenv("SECRET_KEY"))
 
 type ContextKey string
 
-const WalletIDKey ContextKey = "walletID"
+const PublicKey ContextKey = "publicKey"
 
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -45,7 +45,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 
 		log.Printf("✅ Authenticated wallet: %s\n", claims.Subject)
 
-		ctx := context.WithValue(r.Context(), WalletIDKey, claims.Subject)
+		ctx := context.WithValue(r.Context(), PublicKey, claims.Subject)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

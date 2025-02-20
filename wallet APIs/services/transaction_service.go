@@ -11,12 +11,12 @@ func SendCoins(from, to string, amount int) (models.Transaction, error) {
 		return models.Transaction{}, errors.New("amount must be greater than zero")
 	}
 
-	senderWallet, err := repository.GetWallet(from)
+	senderWallet, err := repository.GetWalletByPublicKey(from)
 	if err != nil {
 		return models.Transaction{}, errors.New("sender wallet not found")
 	}
 
-	receiverWallet, err := repository.GetWallet(to)
+	receiverWallet, err := repository.GetWalletByPublicKey(to)
 	if err != nil {
 		return models.Transaction{}, errors.New("receiver wallet not found")
 	}
