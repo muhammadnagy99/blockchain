@@ -23,6 +23,7 @@ namespace transaction {
 
 static const char* TransactionService_method_names[] = {
   "/transaction.TransactionService/AddTransaction",
+  "/transaction.TransactionService/GetChain",
 };
 
 std::unique_ptr< TransactionService::Stub> TransactionService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -33,6 +34,7 @@ std::unique_ptr< TransactionService::Stub> TransactionService::NewStub(const std
 
 TransactionService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
   : channel_(channel), rpcmethod_AddTransaction_(TransactionService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetChain_(TransactionService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status TransactionService::Stub::AddTransaction(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest& request, ::transaction::TransactionResponse* response) {
@@ -58,6 +60,29 @@ void TransactionService::Stub::async::AddTransaction(::grpc::ClientContext* cont
   return result;
 }
 
+::grpc::Status TransactionService::Stub::GetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::transaction::ChainResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::transaction::EmptyRequest, ::transaction::ChainResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetChain_, context, request, response);
+}
+
+void TransactionService::Stub::async::GetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest* request, ::transaction::ChainResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::transaction::EmptyRequest, ::transaction::ChainResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetChain_, context, request, response, std::move(f));
+}
+
+void TransactionService::Stub::async::GetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest* request, ::transaction::ChainResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetChain_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::transaction::ChainResponse>* TransactionService::Stub::PrepareAsyncGetChainRaw(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::transaction::ChainResponse, ::transaction::EmptyRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetChain_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::transaction::ChainResponse>* TransactionService::Stub::AsyncGetChainRaw(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetChainRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 TransactionService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TransactionService_method_names[0],
@@ -69,12 +94,29 @@ TransactionService::Service::Service() {
              ::transaction::TransactionResponse* resp) {
                return service->AddTransaction(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      TransactionService_method_names[1],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< TransactionService::Service, ::transaction::EmptyRequest, ::transaction::ChainResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TransactionService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::transaction::EmptyRequest* req,
+             ::transaction::ChainResponse* resp) {
+               return service->GetChain(ctx, req, resp);
+             }, this)));
 }
 
 TransactionService::Service::~Service() {
 }
 
 ::grpc::Status TransactionService::Service::AddTransaction(::grpc::ServerContext* context, const ::transaction::TransactionJsonRequest* request, ::transaction::TransactionResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status TransactionService::Service::GetChain(::grpc::ServerContext* context, const ::transaction::EmptyRequest* request, ::transaction::ChainResponse* response) {
   (void) context;
   (void) request;
   (void) response;

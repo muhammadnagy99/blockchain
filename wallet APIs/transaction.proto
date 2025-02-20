@@ -2,10 +2,11 @@ syntax = "proto3";
 
 package transaction;
 
+option go_package = "grpc/transaction"; 
+
 service TransactionService {
     rpc AddTransaction(TransactionJsonRequest) returns (TransactionResponse);
     rpc GetChain (EmptyRequest) returns (ChainResponse);
-
 }
 
 message TransactionJsonRequest {
@@ -20,5 +21,5 @@ message TransactionResponse {
 message EmptyRequest {}
 
 message ChainResponse {
-  string chain_json = 1;
+    string chain_json = 1;
 }

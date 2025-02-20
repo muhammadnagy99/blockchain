@@ -1,0 +1,48 @@
+# Go-related files
+*.exe
+*.mod
+*.sum
+*.out
+*.test
+*.log
+*.env
+*.tmp
+
+# Binaries & build artifacts
+/bin/
+/pkg/
+/vendor/
+/dist/
+*.o
+*.a
+*.so
+
+# IDE & Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# PebbleDB database files
+/data/
+*.ldb
+*.log
+*.sst
+*.dbtmp
+*.pebble
+LOCK
+
+# gRPC and Protobuf generated files
+grpc/transaction/*.pb.go
+grpc/transaction/*.grpc.pb.go
+
+# Swagger generated files
+docs/
+swagger.json
+swagger.yaml
+
+# Cache & temp files
+/tmp/
+.cache/
+.DS_Store
+Thumbs.db

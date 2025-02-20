@@ -42,11 +42,20 @@ class TransactionService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::transaction::TransactionResponse>> PrepareAsyncAddTransaction(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::transaction::TransactionResponse>>(PrepareAsyncAddTransactionRaw(context, request, cq));
     }
+    virtual ::grpc::Status GetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::transaction::ChainResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::transaction::ChainResponse>> AsyncGetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::transaction::ChainResponse>>(AsyncGetChainRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::transaction::ChainResponse>> PrepareAsyncGetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::transaction::ChainResponse>>(PrepareAsyncGetChainRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
       virtual void AddTransaction(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest* request, ::transaction::TransactionResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void AddTransaction(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest* request, ::transaction::TransactionResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void GetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest* request, ::transaction::ChainResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest* request, ::transaction::ChainResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -54,6 +63,8 @@ class TransactionService final {
    private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::transaction::TransactionResponse>* AsyncAddTransactionRaw(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::transaction::TransactionResponse>* PrepareAsyncAddTransactionRaw(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::transaction::ChainResponse>* AsyncGetChainRaw(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::transaction::ChainResponse>* PrepareAsyncGetChainRaw(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -65,11 +76,20 @@ class TransactionService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::transaction::TransactionResponse>> PrepareAsyncAddTransaction(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::transaction::TransactionResponse>>(PrepareAsyncAddTransactionRaw(context, request, cq));
     }
+    ::grpc::Status GetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::transaction::ChainResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::transaction::ChainResponse>> AsyncGetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::transaction::ChainResponse>>(AsyncGetChainRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::transaction::ChainResponse>> PrepareAsyncGetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::transaction::ChainResponse>>(PrepareAsyncGetChainRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
       void AddTransaction(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest* request, ::transaction::TransactionResponse* response, std::function<void(::grpc::Status)>) override;
       void AddTransaction(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest* request, ::transaction::TransactionResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest* request, ::transaction::ChainResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetChain(::grpc::ClientContext* context, const ::transaction::EmptyRequest* request, ::transaction::ChainResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -83,7 +103,10 @@ class TransactionService final {
     class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::transaction::TransactionResponse>* AsyncAddTransactionRaw(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::transaction::TransactionResponse>* PrepareAsyncAddTransactionRaw(::grpc::ClientContext* context, const ::transaction::TransactionJsonRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::transaction::ChainResponse>* AsyncGetChainRaw(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::transaction::ChainResponse>* PrepareAsyncGetChainRaw(::grpc::ClientContext* context, const ::transaction::EmptyRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_AddTransaction_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetChain_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -92,6 +115,7 @@ class TransactionService final {
     Service();
     virtual ~Service();
     virtual ::grpc::Status AddTransaction(::grpc::ServerContext* context, const ::transaction::TransactionJsonRequest* request, ::transaction::TransactionResponse* response);
+    virtual ::grpc::Status GetChain(::grpc::ServerContext* context, const ::transaction::EmptyRequest* request, ::transaction::ChainResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_AddTransaction : public BaseClass {
@@ -113,7 +137,27 @@ class TransactionService final {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_AddTransaction<Service > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetChain : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetChain() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_GetChain() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetChain(::grpc::ServerContext* /*context*/, const ::transaction::EmptyRequest* /*request*/, ::transaction::ChainResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetChain(::grpc::ServerContext* context, ::transaction::EmptyRequest* request, ::grpc::ServerAsyncResponseWriter< ::transaction::ChainResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_AddTransaction<WithAsyncMethod_GetChain<Service > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_AddTransaction : public BaseClass {
    private:
@@ -141,7 +185,34 @@ class TransactionService final {
     virtual ::grpc::ServerUnaryReactor* AddTransaction(
       ::grpc::CallbackServerContext* /*context*/, const ::transaction::TransactionJsonRequest* /*request*/, ::transaction::TransactionResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_AddTransaction<Service > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_GetChain : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetChain() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::transaction::EmptyRequest, ::transaction::ChainResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::transaction::EmptyRequest* request, ::transaction::ChainResponse* response) { return this->GetChain(context, request, response); }));}
+    void SetMessageAllocatorFor_GetChain(
+        ::grpc::MessageAllocator< ::transaction::EmptyRequest, ::transaction::ChainResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::transaction::EmptyRequest, ::transaction::ChainResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetChain() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetChain(::grpc::ServerContext* /*context*/, const ::transaction::EmptyRequest* /*request*/, ::transaction::ChainResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetChain(
+      ::grpc::CallbackServerContext* /*context*/, const ::transaction::EmptyRequest* /*request*/, ::transaction::ChainResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_AddTransaction<WithCallbackMethod_GetChain<Service > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_AddTransaction : public BaseClass {
@@ -156,6 +227,23 @@ class TransactionService final {
     }
     // disable synchronous version of this method
     ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::transaction::TransactionJsonRequest* /*request*/, ::transaction::TransactionResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetChain : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetChain() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_GetChain() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetChain(::grpc::ServerContext* /*context*/, const ::transaction::EmptyRequest* /*request*/, ::transaction::ChainResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -181,6 +269,26 @@ class TransactionService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_GetChain : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetChain() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_GetChain() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetChain(::grpc::ServerContext* /*context*/, const ::transaction::EmptyRequest* /*request*/, ::transaction::ChainResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetChain(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_AddTransaction : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -200,6 +308,28 @@ class TransactionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* AddTransaction(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetChain : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetChain() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetChain(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetChain() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetChain(::grpc::ServerContext* /*context*/, const ::transaction::EmptyRequest* /*request*/, ::transaction::ChainResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetChain(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -229,9 +359,36 @@ class TransactionService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedAddTransaction(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::transaction::TransactionJsonRequest,::transaction::TransactionResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_AddTransaction<Service > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetChain : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetChain() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::transaction::EmptyRequest, ::transaction::ChainResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::transaction::EmptyRequest, ::transaction::ChainResponse>* streamer) {
+                       return this->StreamedGetChain(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetChain() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetChain(::grpc::ServerContext* /*context*/, const ::transaction::EmptyRequest* /*request*/, ::transaction::ChainResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetChain(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::transaction::EmptyRequest,::transaction::ChainResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_AddTransaction<WithStreamedUnaryMethod_GetChain<Service > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_AddTransaction<Service > StreamedService;
+  typedef WithStreamedUnaryMethod_AddTransaction<WithStreamedUnaryMethod_GetChain<Service > > StreamedService;
 };
 
 }  // namespace transaction

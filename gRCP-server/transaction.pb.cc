@@ -48,8 +48,32 @@ struct TransactionResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TransactionResponseDefaultTypeInternal _TransactionResponse_default_instance_;
+PROTOBUF_CONSTEXPR EmptyRequest::EmptyRequest(
+    ::_pbi::ConstantInitialized) {}
+struct EmptyRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR EmptyRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~EmptyRequestDefaultTypeInternal() {}
+  union {
+    EmptyRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EmptyRequestDefaultTypeInternal _EmptyRequest_default_instance_;
+PROTOBUF_CONSTEXPR ChainResponse::ChainResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.chain_json_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct ChainResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ChainResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ChainResponseDefaultTypeInternal() {}
+  union {
+    ChainResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChainResponseDefaultTypeInternal _ChainResponse_default_instance_;
 }  // namespace transaction
-static ::_pb::Metadata file_level_metadata_transaction_2eproto[2];
+static ::_pb::Metadata file_level_metadata_transaction_2eproto[4];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_transaction_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_transaction_2eproto = nullptr;
 
@@ -69,31 +93,51 @@ const uint32_t TableStruct_transaction_2eproto::offsets[] PROTOBUF_SECTION_VARIA
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::transaction::TransactionResponse, _impl_.success_),
   PROTOBUF_FIELD_OFFSET(::transaction::TransactionResponse, _impl_.message_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::transaction::EmptyRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::transaction::ChainResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::transaction::ChainResponse, _impl_.chain_json_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::transaction::TransactionJsonRequest)},
   { 7, -1, -1, sizeof(::transaction::TransactionResponse)},
+  { 15, -1, -1, sizeof(::transaction::EmptyRequest)},
+  { 21, -1, -1, sizeof(::transaction::ChainResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::transaction::_TransactionJsonRequest_default_instance_._instance,
   &::transaction::_TransactionResponse_default_instance_._instance,
+  &::transaction::_EmptyRequest_default_instance_._instance,
+  &::transaction::_ChainResponse_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_transaction_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\021transaction.proto\022\013transaction\"+\n\026Tran"
   "sactionJsonRequest\022\021\n\tjson_data\030\001 \001(\t\"7\n"
   "\023TransactionResponse\022\017\n\007success\030\001 \001(\010\022\017\n"
-  "\007message\030\002 \001(\t2m\n\022TransactionService\022W\n\016"
-  "AddTransaction\022#.transaction.Transaction"
-  "JsonRequest\032 .transaction.TransactionRes"
-  "ponseb\006proto3"
+  "\007message\030\002 \001(\t\"\016\n\014EmptyRequest\"#\n\rChainR"
+  "esponse\022\022\n\nchain_json\030\001 \001(\t2\260\001\n\022Transact"
+  "ionService\022W\n\016AddTransaction\022#.transacti"
+  "on.TransactionJsonRequest\032 .transaction."
+  "TransactionResponse\022A\n\010GetChain\022\031.transa"
+  "ction.EmptyRequest\032\032.transaction.ChainRe"
+  "sponseb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_transaction_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_transaction_2eproto = {
-    false, false, 253, descriptor_table_protodef_transaction_2eproto,
+    false, false, 374, descriptor_table_protodef_transaction_2eproto,
     "transaction.proto",
-    &descriptor_table_transaction_2eproto_once, nullptr, 0, 2,
+    &descriptor_table_transaction_2eproto_once, nullptr, 0, 4,
     schemas, file_default_instances, TableStruct_transaction_2eproto::offsets,
     file_level_metadata_transaction_2eproto, file_level_enum_descriptors_transaction_2eproto,
     file_level_service_descriptors_transaction_2eproto,
@@ -539,6 +583,249 @@ void TransactionResponse::InternalSwap(TransactionResponse* other) {
       file_level_metadata_transaction_2eproto[1]);
 }
 
+// ===================================================================
+
+class EmptyRequest::_Internal {
+ public:
+};
+
+EmptyRequest::EmptyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
+  // @@protoc_insertion_point(arena_constructor:transaction.EmptyRequest)
+}
+EmptyRequest::EmptyRequest(const EmptyRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  EmptyRequest* const _this = this; (void)_this;
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:transaction.EmptyRequest)
+}
+
+
+
+
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData EmptyRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*EmptyRequest::GetClassData() const { return &_class_data_; }
+
+
+
+
+
+
+
+::PROTOBUF_NAMESPACE_ID::Metadata EmptyRequest::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_transaction_2eproto_getter, &descriptor_table_transaction_2eproto_once,
+      file_level_metadata_transaction_2eproto[2]);
+}
+
+// ===================================================================
+
+class ChainResponse::_Internal {
+ public:
+};
+
+ChainResponse::ChainResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:transaction.ChainResponse)
+}
+ChainResponse::ChainResponse(const ChainResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ChainResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.chain_json_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.chain_json_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.chain_json_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_chain_json().empty()) {
+    _this->_impl_.chain_json_.Set(from._internal_chain_json(), 
+      _this->GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:transaction.ChainResponse)
+}
+
+inline void ChainResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.chain_json_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.chain_json_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.chain_json_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+ChainResponse::~ChainResponse() {
+  // @@protoc_insertion_point(destructor:transaction.ChainResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ChainResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.chain_json_.Destroy();
+}
+
+void ChainResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ChainResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:transaction.ChainResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.chain_json_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* ChainResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string chain_json = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_chain_json();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "transaction.ChainResponse.chain_json"));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ChainResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:transaction.ChainResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string chain_json = 1;
+  if (!this->_internal_chain_json().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_chain_json().data(), static_cast<int>(this->_internal_chain_json().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "transaction.ChainResponse.chain_json");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_chain_json(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:transaction.ChainResponse)
+  return target;
+}
+
+size_t ChainResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:transaction.ChainResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string chain_json = 1;
+  if (!this->_internal_chain_json().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_chain_json());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ChainResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    ChainResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ChainResponse::GetClassData() const { return &_class_data_; }
+
+
+void ChainResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ChainResponse*>(&to_msg);
+  auto& from = static_cast<const ChainResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:transaction.ChainResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_chain_json().empty()) {
+    _this->_internal_set_chain_json(from._internal_chain_json());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void ChainResponse::CopyFrom(const ChainResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:transaction.ChainResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ChainResponse::IsInitialized() const {
+  return true;
+}
+
+void ChainResponse::InternalSwap(ChainResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.chain_json_, lhs_arena,
+      &other->_impl_.chain_json_, rhs_arena
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ChainResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_transaction_2eproto_getter, &descriptor_table_transaction_2eproto_once,
+      file_level_metadata_transaction_2eproto[3]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace transaction
 PROTOBUF_NAMESPACE_OPEN
@@ -549,6 +836,14 @@ Arena::CreateMaybeMessage< ::transaction::TransactionJsonRequest >(Arena* arena)
 template<> PROTOBUF_NOINLINE ::transaction::TransactionResponse*
 Arena::CreateMaybeMessage< ::transaction::TransactionResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::transaction::TransactionResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::transaction::EmptyRequest*
+Arena::CreateMaybeMessage< ::transaction::EmptyRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::transaction::EmptyRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::transaction::ChainResponse*
+Arena::CreateMaybeMessage< ::transaction::ChainResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::transaction::ChainResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

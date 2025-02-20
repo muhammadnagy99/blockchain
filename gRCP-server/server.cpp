@@ -14,10 +14,10 @@ using grpc::Status;
 using transaction::TransactionJsonRequest;
 using transaction::TransactionResponse;
 using transaction::TransactionService;
-using json = nlohmann::json; 
+using json = nlohmann::json;
 
-constexpr const char* BLOCKCHAIN_DB_PATH = "blockchain_db";
-constexpr const char* TRANSACTION_POOL_DB_PATH = "transaction_pool_db_path";
+constexpr const char *BLOCKCHAIN_DB_PATH = "blockchain_db";
+constexpr const char *TRANSACTION_POOL_DB_PATH = "transaction_pool_db_path";
 
 class TransactionServiceImpl final : public TransactionService::Service
 {
@@ -46,8 +46,35 @@ public:
         {
             response->set_success(false);
             response->set_message(std::string("Failed to parse JSON: ") + e.what());
-            std::cout<< e.what() << std::endl;
+            std::cout << e.what() << std::endl;
             return Status(grpc::StatusCode::INVALID_ARGUMENT, "Invalid JSON format");
+        }
+    }
+
+    grpc::Status GetChain(grpc::ServerContext *context, const transaction::EmptyRequest *request, transaction::ChainResponse *response) override
+    {
+        try
+        {
+            std::vector<std::string> chain_data = blockchain->get_chain();
+
+            json json_chain = json::array();
+            for (const auto &block_json : chain_data)
+            {
+                json_chain.push_back(json::parse(block_json));
+            }
+
+            std::string serialized_chain = json_chain.dump();
+            if (serialized_chain.size() > 4 * 1024 * 1024)
+            { 
+                return grpc::Status(grpc::StatusCode::RESOURCE_EXHAUSTED, "Blockchain data too large");
+            }
+
+            response->set_chain_json(serialized_chain);
+            return grpc::Status::OK;
+        }
+        catch (const std::exception &e)
+        {
+            return grpc::Status(grpc::StatusCode::INTERNAL, std::string("Error retrieving chain: ") + e.what());
         }
     }
 };

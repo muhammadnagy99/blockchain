@@ -23,6 +23,7 @@
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
 #include <google/protobuf/arenastring.h>
+#include <google/protobuf/generated_message_bases.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/metadata_lite.h>
 #include <google/protobuf/generated_message_reflection.h>
@@ -45,6 +46,12 @@ struct TableStruct_transaction_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_transaction_2eproto;
 namespace transaction {
+class ChainResponse;
+struct ChainResponseDefaultTypeInternal;
+extern ChainResponseDefaultTypeInternal _ChainResponse_default_instance_;
+class EmptyRequest;
+struct EmptyRequestDefaultTypeInternal;
+extern EmptyRequestDefaultTypeInternal _EmptyRequest_default_instance_;
 class TransactionJsonRequest;
 struct TransactionJsonRequestDefaultTypeInternal;
 extern TransactionJsonRequestDefaultTypeInternal _TransactionJsonRequest_default_instance_;
@@ -53,6 +60,8 @@ struct TransactionResponseDefaultTypeInternal;
 extern TransactionResponseDefaultTypeInternal _TransactionResponse_default_instance_;
 }  // namespace transaction
 PROTOBUF_NAMESPACE_OPEN
+template<> ::transaction::ChainResponse* Arena::CreateMaybeMessage<::transaction::ChainResponse>(Arena*);
+template<> ::transaction::EmptyRequest* Arena::CreateMaybeMessage<::transaction::EmptyRequest>(Arena*);
 template<> ::transaction::TransactionJsonRequest* Arena::CreateMaybeMessage<::transaction::TransactionJsonRequest>(Arena*);
 template<> ::transaction::TransactionResponse* Arena::CreateMaybeMessage<::transaction::TransactionResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -375,6 +384,277 @@ class TransactionResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_transaction_2eproto;
 };
+// -------------------------------------------------------------------
+
+class EmptyRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:transaction.EmptyRequest) */ {
+ public:
+  inline EmptyRequest() : EmptyRequest(nullptr) {}
+  explicit PROTOBUF_CONSTEXPR EmptyRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  EmptyRequest(const EmptyRequest& from);
+  EmptyRequest(EmptyRequest&& from) noexcept
+    : EmptyRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline EmptyRequest& operator=(const EmptyRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EmptyRequest& operator=(EmptyRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const EmptyRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const EmptyRequest* internal_default_instance() {
+    return reinterpret_cast<const EmptyRequest*>(
+               &_EmptyRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(EmptyRequest& a, EmptyRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EmptyRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(EmptyRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  EmptyRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<EmptyRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const EmptyRequest& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const EmptyRequest& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
+  }
+  public:
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "transaction.EmptyRequest";
+  }
+  protected:
+  explicit EmptyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:transaction.EmptyRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+  };
+  friend struct ::TableStruct_transaction_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ChainResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:transaction.ChainResponse) */ {
+ public:
+  inline ChainResponse() : ChainResponse(nullptr) {}
+  ~ChainResponse() override;
+  explicit PROTOBUF_CONSTEXPR ChainResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ChainResponse(const ChainResponse& from);
+  ChainResponse(ChainResponse&& from) noexcept
+    : ChainResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline ChainResponse& operator=(const ChainResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ChainResponse& operator=(ChainResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const ChainResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ChainResponse* internal_default_instance() {
+    return reinterpret_cast<const ChainResponse*>(
+               &_ChainResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(ChainResponse& a, ChainResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ChainResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ChainResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ChainResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ChainResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const ChainResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const ChainResponse& from) {
+    ChainResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ChainResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "transaction.ChainResponse";
+  }
+  protected:
+  explicit ChainResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kChainJsonFieldNumber = 1,
+  };
+  // string chain_json = 1;
+  void clear_chain_json();
+  const std::string& chain_json() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_chain_json(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_chain_json();
+  PROTOBUF_NODISCARD std::string* release_chain_json();
+  void set_allocated_chain_json(std::string* chain_json);
+  private:
+  const std::string& _internal_chain_json() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_chain_json(const std::string& value);
+  std::string* _internal_mutable_chain_json();
+  public:
+
+  // @@protoc_insertion_point(class_scope:transaction.ChainResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr chain_json_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_transaction_2eproto;
+};
 // ===================================================================
 
 
@@ -510,9 +790,71 @@ inline void TransactionResponse::set_allocated_message(std::string* message) {
   // @@protoc_insertion_point(field_set_allocated:transaction.TransactionResponse.message)
 }
 
+// -------------------------------------------------------------------
+
+// EmptyRequest
+
+// -------------------------------------------------------------------
+
+// ChainResponse
+
+// string chain_json = 1;
+inline void ChainResponse::clear_chain_json() {
+  _impl_.chain_json_.ClearToEmpty();
+}
+inline const std::string& ChainResponse::chain_json() const {
+  // @@protoc_insertion_point(field_get:transaction.ChainResponse.chain_json)
+  return _internal_chain_json();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ChainResponse::set_chain_json(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.chain_json_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:transaction.ChainResponse.chain_json)
+}
+inline std::string* ChainResponse::mutable_chain_json() {
+  std::string* _s = _internal_mutable_chain_json();
+  // @@protoc_insertion_point(field_mutable:transaction.ChainResponse.chain_json)
+  return _s;
+}
+inline const std::string& ChainResponse::_internal_chain_json() const {
+  return _impl_.chain_json_.Get();
+}
+inline void ChainResponse::_internal_set_chain_json(const std::string& value) {
+  
+  _impl_.chain_json_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ChainResponse::_internal_mutable_chain_json() {
+  
+  return _impl_.chain_json_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ChainResponse::release_chain_json() {
+  // @@protoc_insertion_point(field_release:transaction.ChainResponse.chain_json)
+  return _impl_.chain_json_.Release();
+}
+inline void ChainResponse::set_allocated_chain_json(std::string* chain_json) {
+  if (chain_json != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.chain_json_.SetAllocated(chain_json, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.chain_json_.IsDefault()) {
+    _impl_.chain_json_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:transaction.ChainResponse.chain_json)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 
