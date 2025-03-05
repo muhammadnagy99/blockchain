@@ -8,39 +8,6 @@ This project is a custom Layer 0 blockchain implementation in C++, designed with
 - Persistent Storage with RocksDB: All blockchain and transaction data is efficiently stored.
 - Scalability & Modularity: Can be extended beyond PoW-based transaction visualization.
 
-**Project Structure**
-
-├── include/
-│   ├── core/                  # Core blockchain components
-│   │   ├── block.h            # Block structure and logic
-│   │   ├── block_body.h       # Block body details
-│   │   ├── block_header.h     # Block header structure
-│   │   ├── block_hasher.h     # Block hashing utilities
-│   │   ├── blockchain.h       # Blockchain management
-│   │   ├── transaction.h      # Transaction handling
-│   ├── data/                  
-│   │   ├── body_data.h        # Block body data structures
-│   ├── interfaces/            # Interface definitions for abstraction
-│   │   ├── iblock_body.h      
-│   │   ├── iblock_header.h    
-│   │   ├── iblock_validator.h 
-│   │   ├── iminer.h           
-│   │   ├── itransaction_pool.h
-│   ├── mining/
-│   │   ├── miner.h            # mining functionality
-│   ├── serializers/           # Serialization utilities
-│   │   ├── block_serializer.h  
-│   │   ├── block_body_serializer.h  
-│   │   ├── block_header_serializer.h  
-│   ├── transaction/           
-│   │   ├── transaction_pool.h  # Transaction pool logic
-│   ├── validators/
-│   │   ├── block_validator.h  # Block validation logic
-│── src/                       # Source files
-│── example/main.cpp           # chain example usage
-│── README.md                  # Project documentation
-
-
 **Features**
 1. Blockchain Management: Handles block creation, validation, and chain state.
 2. Automatic Mining: Blocks are mined automatically without manual triggers.
